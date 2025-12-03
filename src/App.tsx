@@ -152,7 +152,7 @@ const HomePage = ({ onScrollToContact }: HomePageProps) => (
         <div className="grid md:grid-cols-3 gap-8 md:gap-10 text-center">
           <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 space-y-4">
             <Scale className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
-            <h3 className="text-xl font-bold text-black">Ondernemingen &amp; compliance teams</h3>
+            <h3 className="text-xl font-bold text-black">Ondernemingen &amp; Compliance teams</h3>
             <p className="text-gray-600 leading-relaxed">
               Bedrijven die snel willen weten wat verandert en welke acties prioritair zijn.
             </p>
@@ -161,14 +161,14 @@ const HomePage = ({ onScrollToContact }: HomePageProps) => (
             <Building className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
             <h3 className="text-xl font-bold text-black">Ondernemingen die actief risicobeheer willen voeren</h3>
             <p className="text-gray-600 leading-relaxed">
-              en op tijd willen reageren op nieuwe verplichtingen.
+              En op tijd willen reageren op nieuwe verplichtingen.
             </p>
           </div>
           <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 space-y-4">
             <Briefcase className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
             <h3 className="text-xl font-bold text-black">Organisaties die duidelijke stappen willen ontvangen</h3>
             <p className="text-gray-600 leading-relaxed">
-              zodat zij zonder vertraging in regel blijven.
+              Zodat zij zonder vertraging in regel blijven.
             </p>
           </div>
         </div>
@@ -179,25 +179,8 @@ const HomePage = ({ onScrollToContact }: HomePageProps) => (
     <section className="px-6 py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-          Gebaseerd op betrouwbare officiele publicaties
+          Gebaseerd op betrouwbare officiele publicaties zodat elke update juridisch correct is.
         </h2>
-        <p className="text-gray-600 text-lg mb-10">
-          zodat elke update juridisch correct is.
-        </p>
-        <div className="flex flex-wrap justify-center gap-10 text-gray-600 text-lg">
-          <div className="flex items-center gap-2">
-            <BookOpen className="text-teal-500" />
-            Belgisch Staatsblad
-          </div>
-          <div className="flex items-center gap-2">
-            <BookOpen className="text-teal-500" />
-            Raad van State
-          </div>
-          <div className="flex items-center gap-2">
-            <BookOpen className="text-teal-500" />
-            Hof van Cassatie
-          </div>
-        </div>
       </div>
     </section>
 
