@@ -36,14 +36,12 @@ function App() {
           />
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight max-w-4xl">
-            De slimme manier om Belgische wetgeving te volgen
+            De efficiënte manier om nieuwe Belgische regels en rechtspraak meteen te begrijpen
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed">
-  Uplex verzamelt automatisch wetten, besluiten en arresten uit
-  officiële bronnen en vat ze samen met AI: helder, relevant en
-  direct toepasbaar.
-</p>
+            Uplex haalt automatisch alle nieuwe publicaties op en zet ze om in duidelijke inzichten waar je als organisatie onmiddellijk mee verder kan.
+          </p>
 
 
           <button
@@ -67,7 +65,7 @@ function App() {
               <AlertTriangle className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
               <h3 className="text-xl font-bold text-black">Cut Through Complexity</h3>
               <p className="text-gray-600 leading-relaxed">
-                Geen eindeloze Staatsbladlectuur meer — krijg de essentie in enkele seconden.
+                Geen onnodige lectuur meer je krijgt meteen de kern zonder tijd te verliezen.
               </p>
             </div>
 
@@ -75,7 +73,7 @@ function App() {
               <Clock className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
               <h3 className="text-xl font-bold text-black">Bespaar Tijd</h3>
               <p className="text-gray-600 leading-relaxed">
-                Ontvang enkel updates die relevant zijn voor jouw sector of rechtsdomein.
+                Je ziet alleen wat echt telt voor jouw onderneming in jouw sector zodat je geen enkele belangrijke wijziging mist.
               </p>
             </div>
 
@@ -83,7 +81,7 @@ function App() {
               <Shield className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
               <h3 className="text-xl font-bold text-black">Blijf Compliant</h3>
               <p className="text-gray-600 leading-relaxed">
-                Weet wat er verandert en wat jij concreet moet doen om risico’s te vermijden.
+                Je krijgt meteen te zien welke verplichtingen veranderen en welke acties nodig zijn om in regel te blijven.
               </p>
             </div>
 
@@ -91,7 +89,7 @@ function App() {
               <Layers className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
               <h3 className="text-xl font-bold text-black">Slimme Categorisatie</h3>
               <p className="text-gray-600 leading-relaxed">
-                Elk artikel wordt automatisch getagd per sector, rechtsdomein en ministerie.
+                Alles is duidelijk gestructureerd per sector per rechtsdomein en per ministerie zodat je snel vindt wat voor jouw organisatie relevant is.
               </p>
             </div>
 
@@ -99,7 +97,7 @@ function App() {
               <Database className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
               <h3 className="text-xl font-bold text-black">Officiële Bronnen</h3>
               <p className="text-gray-600 leading-relaxed">
-                Alle updates komen rechtstreeks uit het Belgisch Staatsblad, de Raad van State en het Hof van Cassatie.
+                Uplex werkt uitsluitend met officiële publicaties zodat je altijd op correcte en betrouwbare informatie steunt.
               </p>
             </div>
           </div>
