@@ -1,3 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Manrope", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(1200px 800px at 10% -10%, #e6fffb 0%, transparent 60%),
+      radial-gradient(900px 600px at 110% 10%, #e0f2fe 0%, transparent 55%),
+      #ffffff;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Playfair Display", "Times New Roman", serif;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 700ms ease-out both;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 700ms ease-out both;
+  }
+
+  .animate-float {
+    animation: float-slow 7.5s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-slow 10s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .animate-drift {
+    animation: drift 18s linear infinite;
+  }
+
+  .animate-sheen {
+    animation: sheen 4.5s ease-in-out infinite;
+  }
+
+  .animate-pan {
+    animation: pan 22s ease-in-out infinite;
+  }
+
+  .animate-bob-x {
+    animation: bob-x 12s ease-in-out infinite;
+  }
+
+  .animate-stagger {
+    animation: fade-up 700ms ease-out both;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .anim-delay-1 {
+    animation-delay: 120ms;
+  }
+
+  .anim-delay-2 {
+    animation-delay: 240ms;
+  }
+
+  .anim-delay-3 {
+    animation-delay: 360ms;
+  }
+
+  .anim-delay-4 {
+    animation-delay: 480ms;
+  }
+
+  .anim-delay-5 {
+    animation-delay: 600ms;
+  }
+
+  .anim-delay-6 {
+    animation-delay: 720ms;
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(to right, rgba(15, 118, 110, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 118, 110, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-rings {
+    background-image: radial-gradient(circle at center, rgba(15, 118, 110, 0.2) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(18px, -14px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sheen {
+  0% {
+    opacity: 0.15;
+    transform: translateX(-30%);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateX(30%);
+  }
+}
+
+@keyframes pan {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-12px, 10px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bob-x {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}

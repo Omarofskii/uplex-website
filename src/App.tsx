@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FileText,
   Lightbulb,
@@ -258,47 +258,60 @@ type HomePageProps = {
 };
 
 const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
-  <div className="min-h-screen bg-white flex flex-col">
+  <div className="min-h-screen bg-white/90 flex flex-col relative overflow-hidden">
+    <div className="pointer-events-none absolute inset-0">
+      <div className="absolute inset-0 bg-grid opacity-45" />
+      <div className="absolute inset-0 bg-rings opacity-20 animate-drift" />
+      <div className="absolute -top-32 -left-28 h-80 w-80 rounded-full bg-teal-200/70 blur-3xl animate-float" />
+      <div className="absolute top-36 -right-28 h-96 w-96 rounded-full bg-sky-200/65 blur-3xl animate-float anim-delay-2" />
+      <div className="absolute bottom-10 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-200/60 blur-3xl animate-float anim-delay-4" />
+      <div className="absolute top-12 left-1/3 h-48 w-48 rounded-full bg-teal-100/70 blur-2xl animate-float-delayed" />
+      <div className="absolute bottom-24 right-20 h-56 w-56 rounded-full bg-cyan-100/70 blur-3xl animate-float-delayed anim-delay-3" />
+    </div>
     {/* HERO */}
-    <section className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center">
+    <section className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center relative z-10 reveal-on-scroll animate-pan">
       <div className="flex flex-col items-center space-y-8">
         <img
           src="/UpLex_Transparent.png"
           alt="UpLex Logo"
-          className="h-70 md:h-80 w-auto"
+          className="h-70 md:h-80 w-auto animate-fade-up anim-delay-1"
         />
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight max-w-4xl">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-black leading-tight max-w-4xl animate-fade-up anim-delay-2">
           {t.heroTitle}
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed animate-fade-up anim-delay-3">
           {t.heroSubtitle}
         </p>
 
         <button
           onClick={onScrollToContact}
-          className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors duration-200 mt-4"
+          className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-200 mt-4 shadow-lg shadow-teal-500/20 hover:-translate-y-0.5 animate-fade-up anim-delay-4"
         >
           {t.cta}
         </button>
+        <div className="relative mt-6 h-10 w-40 overflow-hidden rounded-full border border-teal-200/60 bg-white/70">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-200/60 to-transparent animate-sheen" />
+        </div>
       </div>
     </section>
 
     {/* WHY UPLEX */}
-    <section className="px-6 py-20 bg-gray-50">
+    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.whyTitle}
         </h2>
 
         <div className="grid md:grid-cols-5 gap-8 md:gap-10">
           {t.whyCards.map((card, idx) => {
             const Icon = [AlertTriangle, Clock, Shield, Layers, Database][idx] || AlertTriangle;
+            const delayClass = ["anim-delay-1", "anim-delay-2", "anim-delay-3", "anim-delay-4", "anim-delay-5"][idx] || "anim-delay-1";
             return (
               <div
                 key={card.title}
-                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-center space-y-4"
+                className={`bg-white/90 p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 text-center space-y-4 hover:-translate-y-1 animate-stagger animate-bob-x ${delayClass}`}
               >
                 <Icon className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold text-black">{card.title}</h3>
@@ -311,19 +324,20 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* HOW IT WORKS */}
-    <section className="px-6 py-20 bg-white">
+    <section className="px-6 py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.howTitle}
         </h2>
 
         <div className="grid md:grid-cols-4 gap-8 md:gap-10">
           {t.howCards.map((card, idx) => {
             const Icon = [FileText, Lightbulb, CheckSquare, History][idx] || FileText;
+            const delayClass = ["anim-delay-1", "anim-delay-2", "anim-delay-3", "anim-delay-4"][idx] || "anim-delay-1";
             return (
               <div
                 key={card.title}
-                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-center space-y-4"
+                className={`bg-white/90 p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 text-center space-y-4 hover:-translate-y-1 animate-stagger animate-bob-x ${delayClass}`}
               >
                 <Icon className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold text-black">{card.title}</h3>
@@ -336,19 +350,20 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* FOR WHO */}
-    <section className="px-6 py-20 bg-gray-50">
+    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.forWhoTitle}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 md:gap-10 text-center">
-          {t.forWhoCards.map((card) => {
+          {t.forWhoCards.map((card, idx) => {
             const Icon = card.icon === "scale" ? Scale : card.icon === "building" ? Building : Briefcase;
+            const delayClass = ["anim-delay-1", "anim-delay-2", "anim-delay-3"][idx] || "anim-delay-1";
             return (
               <div
                 key={card.title}
-                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 space-y-4"
+                className={`bg-white/90 p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 space-y-4 hover:-translate-y-1 animate-stagger animate-bob-x ${delayClass}`}
               >
                 <Icon className="w-12 h-12 text-teal-500 mx-auto" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold text-black">{card.title}</h3>
@@ -361,27 +376,33 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* TRUSTED SOURCES */}
-    <section className="px-6 py-20 bg-gray-50">
+    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{t.sourcesTitle}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-4 animate-fade-up anim-delay-1">
+          {t.sourcesTitle}
+        </h2>
         <p className="text-gray-600 text-lg mb-10">{t.sourcesSubtitle}</p>
         
       </div>
     </section>
 
     {/* NEWSLETTER */}
-    <section className="px-6 py-20 bg-white text-center border-t border-gray-100">
+    <section className="px-6 py-20 bg-white/90 text-center border-t border-gray-100 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-black">{t.newsletterTitle}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold font-display text-black animate-fade-up">
+          {t.newsletterTitle}
+        </h2>
         <p className="text-gray-600 mt-4">{t.newsletterSubtitle}</p>
         <NewsletterForm />
       </div>
     </section>
 
     {/* CONTACT */}
-    <section id="contact" className="px-6 py-20 bg-gray-50 text-center">
-      <Mail className="w-12 h-12 text-teal-500 mx-auto mb-4" />
-      <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">{t.contactTitle}</h2>
+    <section id="contact" className="px-6 py-20 bg-gray-50/90 text-center relative z-10 reveal-on-scroll animate-pan">
+      <Mail className="w-12 h-12 text-teal-500 mx-auto mb-4 animate-fade-up" />
+      <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-6 animate-fade-up anim-delay-1">
+        {t.contactTitle}
+      </h2>
       <p className="text-gray-600 mb-4 max-w-2xl mx-auto">{t.contactBody}</p>
       <a href={`mailto:${t.contactEmail}`} className="text-teal-600 hover:underline text-lg font-semibold">
         {t.contactEmail}
@@ -389,7 +410,7 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* FOOTER */}
-    <footer className="px-6 py-8 bg-gray-50 border-t border-gray-200">
+    <footer className="px-6 py-8 bg-gray-50/90 border-t border-gray-200 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
         <p>(c) {new Date().getFullYear()} Uplex</p>
         <div className="flex gap-4 mt-4 md:mt-0">
@@ -403,20 +424,28 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
 );
 
 const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
-  <div className="min-h-screen bg-white flex flex-col">
-    <section className="px-6 py-16 md:py-20 bg-gray-50 border-b border-gray-200">
+  <div className="min-h-screen bg-white flex flex-col relative overflow-hidden">
+    <div className="pointer-events-none absolute inset-0">
+      <div className="absolute inset-0 bg-grid opacity-45" />
+      <div className="absolute -top-28 -right-24 h-72 w-72 rounded-full bg-sky-200/65 blur-3xl animate-float" />
+      <div className="absolute bottom-10 -left-24 h-80 w-80 rounded-full bg-teal-200/65 blur-3xl animate-float anim-delay-2" />
+      <div className="absolute top-24 left-1/4 h-44 w-44 rounded-full bg-emerald-100/70 blur-2xl animate-float-delayed" />
+    </div>
+    <section className="px-6 py-16 md:py-20 bg-gray-50/90 border-b border-gray-200 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-black">{t.privacyTitle}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold font-display text-black animate-fade-up">
+          {t.privacyTitle}
+        </h1>
         <p className="text-gray-600 text-lg mt-4">{t.privacyIntro}</p>
       </div>
     </section>
 
-    <section className="px-6 py-16 md:py-20 bg-white">
+    <section className="px-6 py-16 md:py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
         {t.privacyCards.map((card) => (
           <div
             key={card.title}
-            className="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100"
+            className="bg-gray-50/90 p-8 rounded-2xl shadow-sm border border-gray-100 transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="text-teal-600 font-semibold text-sm uppercase tracking-wide mb-4">
               {card.title}
@@ -431,7 +460,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
       </div>
     </section>
 
-    <footer className="px-6 py-10 bg-gray-50 border-t border-gray-200">
+    <footer className="px-6 py-10 bg-gray-50/90 border-t border-gray-200 relative z-10 reveal-on-scroll animate-pan">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
         <p>(c) {new Date().getFullYear()} Uplex</p>
         <div className="flex gap-4">
@@ -449,6 +478,35 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
 
 function App() {
   const [lang, setLang] = useState<Lang>("nl");
+  const revealObserver = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const elements = Array.from(document.querySelectorAll(".reveal-on-scroll"));
+    if (!elements.length) return;
+
+    if (revealObserver.current) {
+      revealObserver.current.disconnect();
+    }
+
+    revealObserver.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    elements.forEach((el) => revealObserver.current?.observe(el));
+
+    return () => {
+      revealObserver.current?.disconnect();
+    };
+  }, [lang]);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
