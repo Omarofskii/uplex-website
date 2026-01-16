@@ -410,7 +410,7 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* FOOTER */}
-    <footer className="px-6 py-8 bg-gray-50/90 border-t border-gray-200 relative z-10 reveal-on-scroll animate-pan">
+    <footer className="px-6 py-8 bg-gray-50/90 border-t border-gray-200 relative z-10">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
         <p>(c) {new Date().getFullYear()} Uplex</p>
         <div className="flex gap-4 mt-4 md:mt-0">
@@ -460,7 +460,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
       </div>
     </section>
 
-    <footer className="px-6 py-10 bg-gray-50/90 border-t border-gray-200 relative z-10 reveal-on-scroll animate-pan">
+    <footer className="px-6 py-10 bg-gray-50/90 border-t border-gray-200 relative z-10">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
         <p>(c) {new Date().getFullYear()} Uplex</p>
         <div className="flex gap-4">
@@ -478,6 +478,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
 
 function App() {
   const [lang, setLang] = useState<Lang>("nl");
+  const [scrollProgress, setScrollProgress] = useState(0);
   const revealObserver = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -508,6 +509,36 @@ function App() {
     };
   }, [lang]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let rafId: number | null = null;
+    const updateProgress = () => {
+      const doc = document.documentElement;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const progress = scrollHeight > 0 ? Math.min(window.scrollY / scrollHeight, 1) : 0;
+      setScrollProgress(progress);
+      rafId = null;
+    };
+
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
     if (contactSection) {
@@ -522,6 +553,12 @@ function App() {
 
   return (
     <>
+      <div className="fixed left-3 md:left-4 top-1/2 -translate-y-1/2 h-28 md:h-40 w-1.5 rounded-full bg-gray-200/70 backdrop-blur-sm z-50 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-0 left-0 w-full rounded-full bg-teal-500/90 transition-[height] duration-200 ease-out"
+          style={{ height: `${scrollProgress * 100}%` }}
+        />
+      </div>
       <LangSwitch lang={lang} setLang={setLang} />
       {isPrivacyPage ? <PrivacyPage t={t} /> : <HomePage t={t} onScrollToContact={scrollToContact} />}
     </>
