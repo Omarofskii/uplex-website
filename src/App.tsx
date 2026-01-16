@@ -441,7 +441,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
     </section>
 
     <section className="px-6 py-16 md:py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+      <div className="max-w-6xl mx-auto">
         {t.privacyCards.map((card) => (
           <div
             key={card.title}
