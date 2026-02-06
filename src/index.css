@@ -100,19 +100,58 @@
     background-size: 24px 24px;
   }
 
-  .bg-rings {
-    background-image: radial-gradient(circle at center, rgba(15, 118, 110, 0.2) 1px, transparent 1px);
-    background-size: 22px 22px;
-  }
+.bg-rings {
+  background-image: radial-gradient(circle at center, rgba(15, 118, 110, 0.2) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
 }
 
-body.intro-lock {
+.logo-marquee {
+  position: relative;
   overflow: hidden;
+  padding: 8px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  animation: logo-marquee 18s linear infinite;
+}
+
+.logo-item {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  opacity: 0.55;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  white-space: nowrap;
+}
+
+@keyframes logo-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .top-left-logo {
   height: clamp(36px, 5vw, 52px);
   width: auto;
+  transition: opacity 300ms ease;
+}
+
+body.intro-lock .top-left-logo {
+  opacity: 0;
 }
 
 .intro-overlay {
@@ -122,7 +161,7 @@ body.intro-lock {
   display: grid;
   place-items: center;
   background: radial-gradient(1200px 800px at 10% 10%, #d1faf5 0%, #f0fdfa 45%, #ffffff 100%);
-  animation: intro-overlay-fade 2400ms ease-out both;
+  pointer-events: none;
 }
 
 .intro-logo {
@@ -130,6 +169,22 @@ body.intro-lock {
   height: auto;
   transform-origin: center;
   animation: intro-logo-move 2400ms cubic-bezier(0.1, 0.85, 0.1, 1) both;
+}
+
+.hero-logo {
+  width: clamp(260px, 70vw, 520px);
+  height: auto;
+  transition: opacity 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .hero-logo {
+    width: clamp(420px, 40vw, 640px);
+  }
+}
+
+body.intro-lock .hero-logo {
+  opacity: 0;
 }
 
 @keyframes fade-up {
@@ -222,37 +277,30 @@ body.intro-lock {
   }
   100% {
     opacity: 1;
-    transform: translate3d(var(--intro-end-x), var(--intro-end-y), 0) scale(var(--intro-end-scale));
+    transform: translate3d(
+        var(--intro-end-x),
+        var(--intro-end-y),
+        0
+      )
+      scale(var(--intro-end-scale));
   }
 }
 
-@keyframes intro-overlay-fade {
-  0% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
 
 :root {
   --intro-end-x: -38vw;
   --intro-end-y: -38vh;
-  --intro-end-scale: 0.22;
+  --intro-end-scale: 0.24;
 }
 
 @media (max-width: 640px) {
   :root {
     --intro-end-x: -32vw;
     --intro-end-y: -34vh;
-    --intro-end-scale: 0.28;
+    --intro-end-scale: 0.3;
   }
 
   .intro-logo {
-    width: min(78vw, 360px);
+    width: min(86vw, 320px);
   }
 }

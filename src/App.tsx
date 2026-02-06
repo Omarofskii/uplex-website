@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   FileText,
   Lightbulb,
@@ -255,9 +255,10 @@ const LangSwitch = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void 
 type HomePageProps = {
   t: (typeof translations)[Lang];
   onScrollToContact: () => void;
+  heroLogoRef: React.RefObject<HTMLImageElement>;
 };
 
-const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
+const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
   <div className="min-h-screen bg-white/90 flex flex-col relative overflow-hidden">
     <div className="pointer-events-none absolute inset-0">
       <div className="absolute inset-0 bg-grid opacity-45" />
@@ -275,9 +276,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     >
       <div className="flex flex-col items-center space-y-8">
         <img
+          ref={heroLogoRef}
           src="/UpLex_Transparent.png"
           alt="UpLex Logo"
-          className="h-80 md:h-96 w-auto animate-fade-up anim-delay-1"
+          className="hero-logo animate-fade-up anim-delay-1"
         />
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-black leading-tight max-w-4xl animate-fade-up anim-delay-2">
@@ -397,7 +399,34 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
           {t.sourcesTitle}
         </h2>
         <p className="text-gray-600 text-lg mb-10">{t.sourcesSubtitle}</p>
-        
+        <div className="logo-marquee" aria-label="Bronnen">
+          <div className="logo-track">
+            {[
+              "Belgisch Staatsblad",
+              "Raad van State",
+              "Hof van Cassatie",
+              "Grondwettelijk Hof",
+              "EUR-Lex",
+              "EU-rechtspraak",
+            ].map((source) => (
+              <span key={`a-${source}`} className="logo-item">
+                {source}
+              </span>
+            ))}
+            {[
+              "Belgisch Staatsblad",
+              "Raad van State",
+              "Hof van Cassatie",
+              "Grondwettelijk Hof",
+              "EUR-Lex",
+              "EU-rechtspraak",
+            ].map((source) => (
+              <span key={`b-${source}`} className="logo-item">
+                {source}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -625,23 +654,64 @@ function App() {
   const [lang, setLang] = useState<Lang>("nl");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showIntro, setShowIntro] = useState(true);
+  const [introReady, setIntroReady] = useState(false);
   const revealObserver = useRef<IntersectionObserver | null>(null);
+  const topLogoRef = useRef<HTMLImageElement | null>(null);
+  const introLogoRef = useRef<HTMLImageElement | null>(null);
+  const heroLogoRef = useRef<HTMLImageElement | null>(null);
+  const updateIntroTarget = useCallback(() => {
+    if (!topLogoRef.current || !introLogoRef.current) return;
+    const topRect = topLogoRef.current.getBoundingClientRect();
+    const introRect = introLogoRef.current.getBoundingClientRect();
+
+    const topCenterX = topRect.left + topRect.width / 2;
+    const topCenterY = topRect.top + topRect.height / 2;
+    const introCenterX = introRect.left + introRect.width / 2;
+    const introCenterY = introRect.top + introRect.height / 2;
+
+    const dx = topCenterX - introCenterX;
+    const dy = topCenterY - introCenterY;
+    const scale = introRect.height > 0 ? topRect.height / introRect.height : 0.24;
+
+    const root = document.documentElement;
+    root.style.setProperty("--intro-end-x", `${dx}px`);
+    root.style.setProperty("--intro-end-y", `${dy}px`);
+    root.style.setProperty("--intro-end-scale", `${scale}`);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     document.body.classList.toggle("intro-lock", showIntro);
-    if (!showIntro) return;
+    document.documentElement.classList.toggle("intro-lock", showIntro);
+    if (!showIntro) {
+      setIntroReady(false);
+      return;
+    }
+
+    const rafId = window.requestAnimationFrame(() => {
+      updateIntroTarget();
+      window.requestAnimationFrame(() => {
+        updateIntroTarget();
+        setIntroReady(true);
+      });
+    });
+    const settleTimer = window.setTimeout(updateIntroTarget, 120);
+    window.addEventListener("resize", updateIntroTarget);
 
     const timer = window.setTimeout(() => {
       setShowIntro(false);
-    }, 2400);
+    }, 4000);
 
     return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", updateIntroTarget);
+      window.clearTimeout(settleTimer);
       window.clearTimeout(timer);
       document.body.classList.remove("intro-lock");
+      document.documentElement.classList.remove("intro-lock");
     };
-  }, [showIntro]);
+  }, [showIntro, updateIntroTarget]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -717,11 +787,27 @@ function App() {
     <>
       {showIntro && (
         <div className="intro-overlay" aria-hidden="true">
-          <img src="/UpLex_Transparent.png" alt="" className="intro-logo" />
+          <img
+            ref={introLogoRef}
+            src="/UpLex_Transparent.png"
+            alt=""
+            className="intro-logo"
+            onLoad={() => {
+              updateIntroTarget();
+              setIntroReady(true);
+            }}
+            onAnimationEnd={() => setShowIntro(false)}
+            style={{ animationPlayState: introReady ? "running" : "paused" }}
+          />
         </div>
       )}
       <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
-        <img src="/UpLex_Transparent.png" alt="UpLex Logo" className="top-left-logo" />
+        <img
+          ref={topLogoRef}
+          src="/UpLex_Transparent.png"
+          alt="UpLex Logo"
+          className="top-left-logo"
+        />
       </div>
       <div className="fixed left-3 md:left-4 top-1/2 -translate-y-1/2 h-28 md:h-40 w-1.5 rounded-full bg-gray-200/70 backdrop-blur-sm z-50 overflow-hidden pointer-events-none">
         <div
@@ -731,7 +817,11 @@ function App() {
       </div>
       <LangSwitch lang={lang} setLang={setLang} />
       {!isPrivacyPage && <TopMenu lang={lang} />}
-      {isPrivacyPage ? <PrivacyPage t={t} /> : <HomePage t={t} onScrollToContact={scrollToContact} />}
+      {isPrivacyPage ? (
+        <PrivacyPage t={t} />
+      ) : (
+        <HomePage t={t} onScrollToContact={scrollToContact} heroLogoRef={heroLogoRef} />
+      )}
     </>
   );
 }
