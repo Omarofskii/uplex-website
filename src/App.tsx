@@ -237,7 +237,7 @@ const translations: Record<
 };
 
 const LangSwitch = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) => (
-  <div className="fixed top-4 right-4 z-50 flex gap-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-2 py-1 shadow-sm">
+  <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-50 flex gap-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-2 py-1 shadow-sm">
     {(["nl", "fr"] as Lang[]).map((code) => (
       <button
         key={code}
@@ -519,60 +519,106 @@ const TopMenu = ({ lang }: { lang: Lang }) => {
           contact: "Contact",
         };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-  <div className="fixed top-4 left-4 right-4 z-50 flex items-center justify-center pointer-events-none">
-    <nav className="pointer-events-auto flex flex-wrap items-center justify-center gap-2 md:gap-3 bg-white/80 backdrop-blur-md border border-gray-200/80 rounded-full px-4 py-2 shadow-lg shadow-teal-500/10">
-      <a
-        href="#hero"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.home}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#why"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.why}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#how"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.how}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#forwho"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.for}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#sources"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.sources}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#newsletter"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.news}
-      </a>
-      <span className="text-gray-300">•</span>
-      <a
-        href="#contact"
-        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
-      >
-        {labels.contact}
-      </a>
-    </nav>
-  </div>
-);
+    <>
+      <div className="fixed top-4 left-4 right-4 z-50 flex items-center justify-center pointer-events-none">
+        <nav className="hidden md:flex pointer-events-auto flex-wrap items-center justify-center gap-2 md:gap-3 bg-white/80 backdrop-blur-md border border-gray-200/80 rounded-full px-4 py-2 shadow-lg shadow-teal-500/10">
+          <a
+            href="#hero"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.home}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#why"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.why}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#how"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.how}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#forwho"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.for}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#sources"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.sources}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#newsletter"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.news}
+          </a>
+          <span className="text-gray-300">•</span>
+          <a
+            href="#contact"
+            className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+          >
+            {labels.contact}
+          </a>
+        </nav>
+      </div>
+
+      <div className="md:hidden fixed top-4 right-4 z-50 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+          className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-gray-200/80 bg-white/85 backdrop-blur-md shadow-lg shadow-teal-500/10"
+        >
+          <span className="block h-0.5 w-5 bg-gray-700" />
+          <span className="block h-0.5 w-5 bg-gray-700 ml-[-20px] mt-2" />
+          <span className="block h-0.5 w-5 bg-gray-700 ml-[-20px] mt-2" />
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden fixed top-16 right-4 z-50 w-48 rounded-2xl border border-gray-200/80 bg-white/90 backdrop-blur-md shadow-xl shadow-teal-500/10">
+          <nav className="flex flex-col px-3 py-3 text-sm font-semibold uppercase tracking-wide text-gray-700">
+            <a href="#hero" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.home}
+            </a>
+            <a href="#why" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.why}
+            </a>
+            <a href="#how" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.how}
+            </a>
+            <a href="#forwho" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.for}
+            </a>
+            <a href="#sources" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.sources}
+            </a>
+            <a href="#newsletter" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.news}
+            </a>
+            <a href="#contact" className="px-2 py-2 hover:text-teal-600" onClick={() => setIsOpen(false)}>
+              {labels.contact}
+            </a>
+          </nav>
+        </div>
+      )}
+    </>
+  );
 };
 
 function App() {
@@ -674,6 +720,9 @@ function App() {
           <img src="/UpLex_Transparent.png" alt="" className="intro-logo" />
         </div>
       )}
+      <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
+        <img src="/UpLex_Transparent.png" alt="UpLex Logo" className="top-left-logo" />
+      </div>
       <div className="fixed left-3 md:left-4 top-1/2 -translate-y-1/2 h-28 md:h-40 w-1.5 rounded-full bg-gray-200/70 backdrop-blur-sm z-50 overflow-hidden pointer-events-none">
         <div
           className="absolute top-0 left-0 w-full rounded-full bg-teal-500/90 transition-[height] duration-200 ease-out"

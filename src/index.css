@@ -110,6 +110,11 @@ body.intro-lock {
   overflow: hidden;
 }
 
+.top-left-logo {
+  height: clamp(36px, 5vw, 52px);
+  width: auto;
+}
+
 .intro-overlay {
   position: fixed;
   inset: 0;
@@ -123,6 +128,7 @@ body.intro-lock {
 .intro-logo {
   width: min(70vw, 520px);
   height: auto;
+  transform-origin: center;
   animation: intro-logo-move 2400ms cubic-bezier(0.1, 0.85, 0.1, 1) both;
 }
 
@@ -216,7 +222,7 @@ body.intro-lock {
   }
   100% {
     opacity: 1;
-    transform: translateY(-34vh) scale(0.6);
+    transform: translate3d(var(--intro-end-x), var(--intro-end-y), 0) scale(var(--intro-end-scale));
   }
 }
 
@@ -230,5 +236,23 @@ body.intro-lock {
   100% {
     opacity: 0;
     visibility: hidden;
+  }
+}
+
+:root {
+  --intro-end-x: -38vw;
+  --intro-end-y: -38vh;
+  --intro-end-scale: 0.22;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --intro-end-x: -32vw;
+    --intro-end-y: -34vh;
+    --intro-end-scale: 0.28;
+  }
+
+  .intro-logo {
+    width: min(78vw, 360px);
   }
 }
