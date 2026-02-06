@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: "Manrope", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: radial-gradient(1200px 800px at 10% -10%, #e6fffb 0%, transparent 60%),

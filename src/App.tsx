@@ -269,12 +269,15 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
       <div className="absolute bottom-24 right-20 h-56 w-56 rounded-full bg-cyan-100/70 blur-3xl animate-float-delayed anim-delay-3" />
     </div>
     {/* HERO */}
-    <section className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="hero"
+      className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="flex flex-col items-center space-y-8">
         <img
           src="/UpLex_Transparent.png"
           alt="UpLex Logo"
-          className="h-70 md:h-80 w-auto animate-fade-up anim-delay-1"
+          className="h-80 md:h-96 w-auto animate-fade-up anim-delay-1"
         />
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-black leading-tight max-w-4xl animate-fade-up anim-delay-2">
@@ -298,7 +301,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* WHY UPLEX */}
-    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="why"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.whyTitle}
@@ -324,7 +330,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* HOW IT WORKS */}
-    <section className="px-6 py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="how"
+      className="px-6 py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.howTitle}
@@ -350,7 +359,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* FOR WHO */}
-    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="forwho"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
           {t.forWhoTitle}
@@ -376,7 +388,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* TRUSTED SOURCES */}
-    <section className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="sources"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-4 animate-fade-up anim-delay-1">
           {t.sourcesTitle}
@@ -387,7 +402,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* NEWSLETTER */}
-    <section className="px-6 py-20 bg-white/90 text-center border-t border-gray-100 relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="newsletter"
+      className="px-6 py-20 bg-white/90 text-center border-t border-gray-100 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black animate-fade-up">
           {t.newsletterTitle}
@@ -398,7 +416,10 @@ const HomePage = ({ t, onScrollToContact }: HomePageProps) => (
     </section>
 
     {/* CONTACT */}
-    <section id="contact" className="px-6 py-20 bg-gray-50/90 text-center relative z-10 reveal-on-scroll animate-pan">
+    <section
+      id="contact"
+      className="px-6 py-20 bg-gray-50/90 text-center relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+    >
       <Mail className="w-12 h-12 text-teal-500 mx-auto mb-4 animate-fade-up" />
       <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-6 animate-fade-up anim-delay-1">
         {t.contactTitle}
@@ -475,6 +496,84 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
     </footer>
   </div>
 );
+
+const TopMenu = ({ lang }: { lang: Lang }) => {
+  const labels =
+    lang === "fr"
+      ? {
+          home: "Accueil",
+          why: "Pourquoi",
+          how: "Comment",
+          for: "Pour",
+          sources: "Sources",
+          news: "Actus",
+          contact: "Contact",
+        }
+      : {
+          home: "Home",
+          why: "Waarom",
+          how: "Hoe",
+          for: "Voor",
+          sources: "Bronnen",
+          news: "Nieuws",
+          contact: "Contact",
+        };
+
+  return (
+  <div className="fixed top-4 left-4 right-4 z-50 flex items-center justify-center pointer-events-none">
+    <nav className="pointer-events-auto flex flex-wrap items-center justify-center gap-2 md:gap-3 bg-white/80 backdrop-blur-md border border-gray-200/80 rounded-full px-4 py-2 shadow-lg shadow-teal-500/10">
+      <a
+        href="#hero"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.home}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#why"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.why}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#how"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.how}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#forwho"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.for}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#sources"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.sources}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#newsletter"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.news}
+      </a>
+      <span className="text-gray-300">•</span>
+      <a
+        href="#contact"
+        className="text-xs md:text-sm font-semibold tracking-wide uppercase text-gray-700 hover:text-teal-600 transition-colors"
+      >
+        {labels.contact}
+      </a>
+    </nav>
+  </div>
+);
+};
 
 function App() {
   const [lang, setLang] = useState<Lang>("nl");
@@ -582,6 +681,7 @@ function App() {
         />
       </div>
       <LangSwitch lang={lang} setLang={setLang} />
+      {!isPrivacyPage && <TopMenu lang={lang} />}
       {isPrivacyPage ? <PrivacyPage t={t} /> : <HomePage t={t} onScrollToContact={scrollToContact} />}
     </>
   );
