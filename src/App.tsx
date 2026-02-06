@@ -479,7 +479,24 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
 function App() {
   const [lang, setLang] = useState<Lang>("nl");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showIntro, setShowIntro] = useState(true);
   const revealObserver = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    document.body.classList.toggle("intro-lock", showIntro);
+    if (!showIntro) return;
+
+    const timer = window.setTimeout(() => {
+      setShowIntro(false);
+    }, 2400);
+
+    return () => {
+      window.clearTimeout(timer);
+      document.body.classList.remove("intro-lock");
+    };
+  }, [showIntro]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -553,6 +570,11 @@ function App() {
 
   return (
     <>
+      {showIntro && (
+        <div className="intro-overlay" aria-hidden="true">
+          <img src="/UpLex_Transparent.png" alt="" className="intro-logo" />
+        </div>
+      )}
       <div className="fixed left-3 md:left-4 top-1/2 -translate-y-1/2 h-28 md:h-40 w-1.5 rounded-full bg-gray-200/70 backdrop-blur-sm z-50 overflow-hidden pointer-events-none">
         <div
           className="absolute top-0 left-0 w-full rounded-full bg-teal-500/90 transition-[height] duration-200 ease-out"

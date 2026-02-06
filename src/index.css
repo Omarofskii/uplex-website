@@ -102,6 +102,26 @@
   }
 }
 
+body.intro-lock {
+  overflow: hidden;
+}
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(1200px 800px at 10% 10%, #d1faf5 0%, #f0fdfa 45%, #ffffff 100%);
+  animation: intro-overlay-fade 2400ms ease-out both;
+}
+
+.intro-logo {
+  width: min(70vw, 520px);
+  height: auto;
+  animation: intro-logo-move 2400ms cubic-bezier(0.1, 0.85, 0.1, 1) both;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -178,5 +198,33 @@
   }
   50% {
     transform: translateX(10px);
+  }
+}
+
+@keyframes intro-logo-move {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-34vh) scale(0.6);
+  }
+}
+
+@keyframes intro-overlay-fade {
+  0% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
 }
