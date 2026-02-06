@@ -38,6 +38,11 @@ const translations: Record<
     contactTitle: string;
     contactBody: string;
     contactEmail: string;
+    newsletterForm: {
+      placeholder: string;
+      button: string;
+      success: string;
+    };
     footerPrivacy: string;
     footerHome: string;
     footerContact: string;
@@ -119,6 +124,11 @@ const translations: Record<
     contactTitle: "Neem contact op",
     contactBody: "Heb je vragen, wil je early access tot de beta of samenwerken met het team achter Uplex?",
     contactEmail: "info@uplex.be",
+    newsletterForm: {
+      placeholder: "Voer je e-mailadres in",
+      button: "Inschrijven",
+      success: "Bedankt voor je inschrijving!",
+    },
     footerPrivacy: "Privacy",
     footerHome: "Home",
     footerContact: "Contact",
@@ -215,6 +225,11 @@ const translations: Record<
     contactBody:
       "Des questions, envie d'acceder a la beta ou de collaborer avec l'equipe Uplex ?",
     contactEmail: "info@uplex.be",
+    newsletterForm: {
+      placeholder: "Entrez votre adresse e-mail",
+      button: "S'inscrire",
+      success: "Merci pour votre inscription !",
+    },
     footerPrivacy: "Confidentialite",
     footerHome: "Accueil",
     footerContact: "Contact",
@@ -272,7 +287,7 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* HERO */}
     <section
       id="hero"
-      className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 md:py-28 max-w-6xl mx-auto text-center relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="flex flex-col items-center space-y-8">
         <img
@@ -305,7 +320,7 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* WHY UPLEX */}
     <section
       id="why"
-      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
@@ -334,7 +349,7 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* HOW IT WORKS */}
     <section
       id="how"
-      className="px-6 py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-white/90 relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
@@ -363,7 +378,7 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* FOR WHO */}
     <section
       id="forwho"
-      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black text-center mb-16 animate-fade-up anim-delay-1">
@@ -392,7 +407,7 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* TRUSTED SOURCES */}
     <section
       id="sources"
-      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-gray-50/90 relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-4 animate-fade-up anim-delay-1">
@@ -433,21 +448,21 @@ const HomePage = ({ t, onScrollToContact, heroLogoRef }: HomePageProps) => (
     {/* NEWSLETTER */}
     <section
       id="newsletter"
-      className="px-6 py-20 bg-white/90 text-center border-t border-gray-100 relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-white/90 text-center border-t border-gray-100 relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold font-display text-black animate-fade-up">
           {t.newsletterTitle}
         </h2>
         <p className="text-gray-600 mt-4">{t.newsletterSubtitle}</p>
-        <NewsletterForm />
+        <NewsletterForm labels={t.newsletterForm} />
       </div>
     </section>
 
     {/* CONTACT */}
     <section
       id="contact"
-      className="px-6 py-20 bg-gray-50/90 text-center relative z-10 reveal-on-scroll animate-pan scroll-mt-24"
+      className="px-6 py-20 bg-gray-50/90 text-center relative z-10 reveal-on-scroll scroll-mt-24"
     >
       <Mail className="w-12 h-12 text-teal-500 mx-auto mb-4 animate-fade-up" />
       <h2 className="text-3xl md:text-4xl font-bold font-display text-black mb-6 animate-fade-up anim-delay-1">
@@ -481,7 +496,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
       <div className="absolute bottom-10 -left-24 h-80 w-80 rounded-full bg-teal-200/65 blur-3xl animate-float anim-delay-2" />
       <div className="absolute top-24 left-1/4 h-44 w-44 rounded-full bg-emerald-100/70 blur-2xl animate-float-delayed" />
     </div>
-    <section className="px-6 py-16 md:py-20 bg-gray-50/90 border-b border-gray-200 relative z-10 reveal-on-scroll animate-pan">
+    <section className="px-6 py-16 md:py-20 bg-gray-50/90 border-b border-gray-200 relative z-10 reveal-on-scroll">
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-bold font-display text-black animate-fade-up">
           {t.privacyTitle}
@@ -490,7 +505,7 @@ const PrivacyPage = ({ t }: { t: (typeof translations)[Lang] }) => (
       </div>
     </section>
 
-    <section className="px-6 py-16 md:py-20 bg-white/90 relative z-10 reveal-on-scroll animate-pan">
+    <section className="px-6 py-16 md:py-20 bg-white/90 relative z-10 reveal-on-scroll">
       <div className="max-w-6xl mx-auto">
         {t.privacyCards.map((card) => (
           <div

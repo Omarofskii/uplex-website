@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-function NewsletterForm() {
+type NewsletterLabels = {
+  placeholder: string;
+  button: string;
+  success: string;
+};
+
+function NewsletterForm({ labels }: { labels: NewsletterLabels }) {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +37,7 @@ function NewsletterForm() {
         <input
           type="email"
           name="entry.257086240"
-          placeholder="Voer je e-mailadres in"
+          placeholder={labels.placeholder}
           required
           className="w-full sm:flex-1 px-4 py-3 rounded-lg border border-teal-300 bg-white 
                      text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-400"
@@ -41,14 +47,12 @@ function NewsletterForm() {
           className="px-6 py-3 rounded-lg bg-teal-500 hover:bg-teal-600 
                      text-white font-semibold transition duration-300"
         >
-          Inschrijven
+          {labels.button}
         </button>
       </form>
 
       {submitted && (
-        <p className="text-teal-600 text-center mt-4 animate-fadeIn">
-          ✅ Bedankt voor je inschrijving!
-        </p>
+        <p className="text-teal-600 text-center mt-4 animate-fadeIn">{labels.success}</p>
       )}
     </div>
   );
